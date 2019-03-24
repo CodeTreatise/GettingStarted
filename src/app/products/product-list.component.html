@@ -1,0 +1,40 @@
+<section class="card">
+  <h5 style="text-align: center;" class="card-title">{{pageTitle}}</h5>
+  <label for="filter" class="card-text">filter by
+    <input type="text" name="filter" id="filter" [(ngModel)]='filterBy' />
+  </label>
+  <span>filter: {{filterBy}}</span>
+  <table class="table" *ngIf='products && products.length'>
+    <thead>
+
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">
+          <button class="btn btn-info btn-sm align-baseline" (click)='toggleImage()'>{{showImage ? 'hide' : 'show'}}
+            image</button>
+        </th>
+        <th scope="col">Product</th>
+        <th scope="col">Code</th>
+        <th scope="col">Available</th>
+        <th scope="col">Price</th>
+        <th scope="col">5 &#9734; Rating </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor='let product of filteredProducts'>
+        <td>{{product.productId}}</td>
+        <td><img *ngIf="showImage" [src]='product.imageUrl' alt={{product.productName}} [title]='product.productName'
+            [style.width.px]='imageWidth' [style.margin.px]='imageMargin'>
+        </td>
+        <td><a [routerLink]="['/products', product.productId]">{{product.productName}}</a></td>
+        <td>{{product.productCode | lowercase | toSpaces: '-'}}</td>
+        <td>{{product.releaseDate}}</td>
+        <td>{{product.price | currency:' &#x20B9;'}}</td>
+        <td>
+          <app-star [rating]='product.starRating' (notify)='onNotify($event)'></app-star>
+        </td>
+
+      </tr>
+    </tbody>
+  </table>
+</section>

@@ -1,0 +1,7 @@
+<section class="card" *ngIf='product'>
+  <h5 class="card-title">
+    {{pageTitle + ' : ' + product.productName}}
+  </h5>
+
+  <a (click)='onBack()' class="btn btn-primary">Go To Product List</a>
+</section>
